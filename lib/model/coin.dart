@@ -1,5 +1,5 @@
 class Coin {
-  int id;
+  String id;
   bool isActive;
   String name;
   String rank;
@@ -18,7 +18,7 @@ class Coin {
         id: json["id"],
         isActive: json["is_active"],
         name: json["name"],
-        rank: json["rank"],
+        rank: json["rank"].toString(),
         symbol: json["symbol"]);
   }
 }

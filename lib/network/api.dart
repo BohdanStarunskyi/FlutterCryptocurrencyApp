@@ -1,3 +1,4 @@
+import 'package:crypto_app/model/coin_detail.dart';
 import 'package:retrofit/http.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart';
@@ -12,7 +13,7 @@ abstract class RestClient {
   Future<List<Coin>> getCoins();
 
   @GET("/v1/coins/{coinId}")
-  Future<Coin> getCoinDetails(@Path("coinId") int coinId);
+  Future<CoinDetail> getCoinDetails(@Path("coinId") String coinId);
 }
 
 class _RestClient implements RestClient {
@@ -31,13 +32,12 @@ class _RestClient implements RestClient {
   }
 
   @override
-  Future<Coin> getCoinDetails(int coinId) async {
-    final dio = Dio();
-    dio.options.baseUrl = '/v1/coins/{coinId}/v1/coins/{coinId}';
+  Future<CoinDetail> getCoinDetails(String coinId) async {
+    dio.options.baseUrl = 'https://api.coinpaprika.com/';
     dio.options.connectTimeout = 150000;
-    final response = await dio.get('v1/coins');
-    final dynamic jsonList = response.data;
-    final Coin coin = jsonList.map((json) => Coin.fromJson(json)).toList();
-    return coin;
+    final response = await dio.get('/v1/coins/$coinId');
+    final dynamic json = response.data;
+    final CoinDetail coinDetail = CoinDetail.fromJson(json);
+    return coinDetail;
   }
 }
