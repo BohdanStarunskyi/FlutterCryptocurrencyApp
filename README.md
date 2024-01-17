@@ -22,6 +22,7 @@ lib    # App Code
 ├── comment_service.dart    # Contains code to get comments from server
 │
 └── main.dart               # Main app class. Contains UI.
+```
 
 ## Screenshots
 # Web App: 
